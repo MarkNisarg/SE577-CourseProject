@@ -1,0 +1,54 @@
+@import './base.css';
+
+#app {
+  margin: 0 auto;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: var(--vt-c-indigo);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: var(--vt-c-white);
+    color: var(--vt-c-indigo);
+  }
+}
+
+h1 {
+  color: var(--vt-c-indigo);
+  font-size: 40px;
+  font-weight: bold;
+  margin: 20px 0;
+  border-bottom: 1px solid var(--vt-c-black);
+}
+
+h2 {
+  color: var(--vt-c-indigo);
+  font-size: 28px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+p {
+  font-size: 20px;
+  margin: 10px 0;
+  text-align: justify;
+}
+
+b {
+  font-weight: bold;
+}
+
+ul {
+  margin: 10px 0;
+}
+
+ul li {
+  font-size: 20px;
+  text-align: justify;
+}
+
