@@ -7,14 +7,13 @@
 
 a {
   text-decoration: none;
-  color: var(--vt-c-indigo);
+  color: var(--vt-c-black);
   transition: 0.4s;
 }
 
 @media (hover: hover) {
   a:hover {
-    color: var(--vt-c-white);
-    color: var(--vt-c-indigo);
+    background-color: var(--vt-c-active-link);
   }
 }
 
@@ -23,7 +22,7 @@ h1 {
   font-size: 40px;
   font-weight: bold;
   margin: 20px 0;
-  border-bottom: 1px solid var(--vt-c-black);
+  border-bottom: 2px solid var(--vt-c-active-link);
 }
 
 h2 {

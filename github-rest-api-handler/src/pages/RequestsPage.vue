@@ -1,9 +1,6 @@
 <template>
   <h1>GitHub REST API Requests</h1>
 
-  <h2>List Repositories:</h2>
-  <p>All repositories will be listed here using GitHub REST API Request...</p>
-
   <h2>List Collaborators:</h2>
   <p>All collaborators for repositories will be listed here using GitHub REST API Request...</p>
 

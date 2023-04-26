@@ -10,6 +10,9 @@
     So take a look around and see what catches your eye and if you have any questions or feedback, don't hesitate to reach out and let me know!
   </p>
 
+  <h2>List Repositories:</h2>
+  <p>All repositories will be listed here using GitHub REST API Request...</p>
+
   <table>
     <tr>
       <th>Name</th>
@@ -20,14 +23,14 @@
     </tr>
     <tr>
       <td>Vaccination</td>
-      <td><a href="https://github.com/MarkNisarg/Vaccination" target="_blank" rel="noopener">https://github.com/MarkNisarg/Vaccination</a></td>
+      <td><a href="https://github.com/MarkNisarg/Vaccination" target="_blank" rel="noopener">Open in GitHub</a></td>
       <td>Vaccine Reminder & Vaccine Schedule</td>
       <td>MarkNisarg, geeta-kukreja, Lavan-ya</td>
       <td>HTML, CSS, JavaScript, Python</td>
     </tr>
     <tr>
       <td>SE577-CourseProject</td>
-      <td><a href="https://github.com/MarkNisarg/SE577-CourseProject" target="_blank" rel="noopener">https://github.com/MarkNisarg/SE577-CourseProject</a></td>
+      <td><a href="https://github.com/MarkNisarg/SE577-CourseProject" target="_blank" rel="noopener">Open in GitHub</a></td>
       <td>Software Architecture</td>
       <td>MarkNisarg</td>
       <td>HTML, CSS, TypeScript, Vue</td>
@@ -61,11 +64,12 @@
 
   th {
     font-weight: bold;
-    background-color: #ccc;
+    background-color: var(--vt-c-active-link);
   }
 
   td a {
-    color: #002b54;
+    color: #043963;
+    text-decoration: underline;
   }
 
   td a:hover,

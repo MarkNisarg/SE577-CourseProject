@@ -41,12 +41,12 @@ import { RouterLink, RouterView } from 'vue-router'
   }
 
   nav a.router-link-exact-active {
-    color: var(--vt-c-white);
-    background-color: var(--vt-c-indigo);
+    color: var(--vt-c-black);
+    background-color: var(--vt-c-active-link);
   }
 
   nav a.router-link-exact-active:hover {
-    background-color: var(--vt-c-indigo);
+    background-color: var(--vt-c-active-link);
   }
 
   nav a {
