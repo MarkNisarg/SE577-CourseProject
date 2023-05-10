@@ -23,7 +23,7 @@
 
 * Feature 1: Under `/repositories` page, get all repositories data
 * Feature 2: Under `/pull` page, get all pull requests for all repositories
-* Feature 3: Under `/pull` page, get all pull requests for specifiv repository using filter options
+* Feature 3: Under `/pull?repo=vaccination` page, get all pull requests for `vaccination` repository using filter options
 
 ## API Endpoints
 
