@@ -21,9 +21,9 @@
 
 ## Features
 
-* Feature 1: Under `/repositories` page, get all repositories data
-* Feature 2: Under `/pull` page, get all pull requests for all repositories
-* Feature 3: Under `/pull?repo=vaccination` page, get all pull requests for `vaccination` repository using filter options
+* Feature 1: Under `Repositories` page, get all repositories data from web service
+* Feature 2: Under `Pull Requests` page, render all pull requests for all repositories
+* Feature 3: Under `Pull Requests` page, get every pull requests for specific repository using filter options
 
 ## API Endpoints
 
