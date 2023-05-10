@@ -1,9 +1,37 @@
-# SE577-CourseProject
+# GitHub REST API Handler
 
-## About Myself
-I, Nisarg Rajendrakumar Patel, graduated from Gujarat Technological University in Gujarat, India, with a bachelor's degree in computer engineering. I joined Tata Consultancy Services (TCS) after graduating in order to obtain some experience in the working world. For 3.5 years, I have been a full-stack web developer with TCS. I then made the decision to branch out further into another area of computer science and am currently pursuing a master's in software engineering (MSSE).
+## Prerequisites
 
-I code in Java, PHP, Drupal, C, C++, and Python. HTML, CSS, SASS, Bootstrap, JavaScript, jQuery, and React JS are all web technologies that I can use well. I wish to see myself in the position of Solution Architect in the Software Development industry in the coming few years.
+* Node.js (v14 or higher)
+* Python (v3 or higher)
 
-## Things I Want to Get Out From This Course
-I'm eager to learn about modern web architecture and software architecture since I want to see myself in the industry as a Solution Architect. I was surprised to see how everything came together when creating the web architecture when I was working with TCS. I'm particularly interested in finding out more about modern web architecture and new technologies.
+## Installation
+
+1. Clone the repository `git clone https://github.com/MarkNisarg/SE577-CourseProject.git`
+2. Checkout to `proj-release-2` branch
+3. Navigate to the `server` directory and run `pip install -r requirements.txt` to install the necessary dependencies for the backend
+4. Navigate to the `github-rest-api-handler` directory and run `yarn` to install the necessary dependencies for the frontend
+
+## Usage
+
+1. Navigate to the `server` directory and run `python app.py` to start backend server
+2. In a separate terminal window, navigate to the `github-rest-api-handler` directory and run `yarn dev` to start the frontend development server
+3. Open your web browser and navigate to `http://localhost:9095/repo` to get all repositories data
+4. Open your web browser and navigate to Vue.js app
+
+## Features
+
+* Feature 1: Under `/repositories` page, get all repositories data
+* Feature 2: Under `/pull` page, get all pull requests for all repositories
+* Feature 3: Under `/pull` page, get all pull requests for specifiv repository using filter options
+
+## API Endpoints
+
+* `http://localhost:9095/repo`: Get all repositories data.
+* `http://localhost:9095/pull`: Get all pull requests from all repositories.
+* `http://localhost:9095/pull?repo=<example>`: Get all pull requests from `<example>` repository.
+
+## Technologies Used
+
+* Vue.js
+* Python Flask

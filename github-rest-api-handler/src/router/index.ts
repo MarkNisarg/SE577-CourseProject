@@ -20,9 +20,9 @@ const router = createRouter({
       component: () => import('../pages/RepositoriesPage.vue')
     },
     {
-      path: '/requests',
+      path: '/pull',
       name: 'requests',
-      component: () => import('../pages/RequestsPage.vue')
+      component: () => import('../pages/PullRequestsPage.vue')
     },
   ]
 })
