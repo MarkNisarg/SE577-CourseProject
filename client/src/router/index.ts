@@ -20,7 +20,7 @@ const router = createRouter({
       component: () => import('../pages/RepositoriesPage.vue')
     },
     {
-      path: '/pull',
+      path: '/pulls',
       name: 'requests',
       component: () => import('../pages/PullRequestsPage.vue')
     },

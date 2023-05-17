@@ -1,64 +1,63 @@
 <template>
   <h1>Pull Requests using GitHub REST API</h1>
-  <div v-if="allRepositoriesData.length > 0">
+  <div v-if="allPrsData.length > 0">
     <div class="form-wrap">
       <select v-model="queryValue">
         <option value="">All Repositories</option>
-        <option v-for="(repository, rowNum) in allRepositoriesData" :key="rowNum" :value="repository.repo">{{
-          repository.repo }}</option>
+        <option v-for="(repo, roWNum) in repos" :key="roWNum">{{ repo }}</option>
       </select>
       <button class="button" type="button" @click="fetchPullRequestsInfo()">
         <span>Get Pull Requests</span></button>
     </div>
 
-    <div class="repo-pulls-wrap" v-for="repository in repositoryData" :key="repository.repo">
-      <div class="pull-wrap" v-for="pull_request in repository.pull_requests" :key="pull_request.html_url">
+    <div class="repo-pulls-wrap" v-for="pr in prData" :key="pr.id">
+      <div class="pull-wrap">
         <div class="link-wrap">
-          <a :href="pull_request.html_url" target="_blank" rel="noopener"> {{ pull_request.title }} </a>
-          <p> By {{ pull_request.owner }}</p>
+          <a :href="pr.html_url" target="_blank" rel="noopener"> {{ pr.title }} </a>
+          <p> By {{ pr.user.login }}</p>
         </div>
-        <p> {{ pull_request.state }} </p>
-        <p class="repo-wrap"> Repository: {{ repository.repo }}</p>
+        <p> {{ pr.state }} </p>
+        <p class="repo-wrap"> Repository: {{ pr.head.repo.name }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'PullRequestPage'
-};
+  export default {
+    name: 'PullRequestPage'
+  };
 </script>
 
-<script setup lang="ts">
+<script setup lang='ts'>
   import { onMounted, ref } from 'vue';
   import type { RepositoryApiInterface, ApiErrorInterface } from './ApiInterfaces';
   import axios, { AxiosError } from 'axios';
 
-  const queryValue = ref("");
-  const apiErrorInfo = ref<ApiErrorInterface>({ isError: false, errorCode: 0, errorMessage: "" })
+  const queryValue = ref('');
+  const apiErrorInfo = ref<ApiErrorInterface>({ isError: false, errorCode: 0, errorMessage: '' })
 
-  let allRepositoriesData = ref<RepositoryApiInterface[]>([]);
-  let repositoryData = ref<RepositoryApiInterface[]>([]);
+  let allPrsData = ref<RepositoryApiInterface[]>([]);
+  let prData = ref<RepositoryApiInterface[]>([]);
+  let repos: any[] = []
 
-  let apiPrefix = 'http://localhost:9095/pull'
+  let apiPrefix = 'http://localhost:9095/pulls'
 
   // Fetch pull requests for given query on button click.
   const fetchPullRequestsInfo = async () => {
-    const apiURL = apiPrefix + '?repo=' + queryValue.value
+    let apiEndPoint = queryValue.value ? '/' + queryValue.value : ''
+    let apiURL = apiPrefix + apiEndPoint
 
     try {
       let repositoryAPI = await axios.get<RepositoryApiInterface[]>(apiURL)
 
       if (repositoryAPI.status == 200) {
-        console.log(repositoryAPI)
         apiErrorInfo.value.isError = false;
         apiErrorInfo.value.errorCode = repositoryAPI.status;
         apiErrorInfo.value.errorMessage = repositoryAPI.statusText;
-        repositoryData.value = repositoryAPI.data
-        console.log(repositoryData.value)
+        prData.value = repositoryAPI.data
       } else {
-        console.log("Something is wrong!")
+        console.log('Something is wrong!')
       }
     } catch (err) {
       let e = err as AxiosError
@@ -66,7 +65,7 @@ export default {
         apiErrorInfo.value.isError = true;
         apiErrorInfo.value.errorCode = e.response.status;
         apiErrorInfo.value.errorMessage = e.request.statusText;
-        console.log("Got Error Code ", e.response.status)
+        console.log('Got Error Code: ', e.response.status)
       }
     }
   }
@@ -76,7 +75,12 @@ export default {
     let repositoryAPI = await axios.get<RepositoryApiInterface[]>(apiPrefix)
     // If OK, get all data.
     if (repositoryAPI.status == 200) {
-      repositoryData.value = allRepositoriesData.value = repositoryAPI.data
+      prData.value = allPrsData.value = repositoryAPI.data
+      allPrsData.value.forEach(pr => {
+        if (!repos.includes(pr.head.repo.name)) {
+          repos.push(pr.head.repo.name)
+        }
+      });
     }
   });
 

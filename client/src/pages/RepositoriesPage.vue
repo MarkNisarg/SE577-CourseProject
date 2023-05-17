@@ -20,15 +20,15 @@
         <th>Name</th>
         <th>URL</th>
         <th>Description</th>
-        <th>Contributors</th>
-        <th>Languages</th>
+        <th>Open Issues</th>
+        <th>Private</th>
       </tr>
       <tr v-for="repository in repositoryData" :key="repository.name">
         <td>{{ repository.name }}</td>
-        <td><a :href="repository.url" target="_blank" rel="noopener">Open in GitHub</a></td>
+        <td><a :href="repository.html_url" target="_blank" rel="noopener">Open in GitHub</a></td>
         <td>{{ repository.description }}</td>
-        <td>{{ repository.contributors }}</td>
-        <td>{{ repository.languages }}</td>
+        <td>{{ repository.open_issues }}</td>
+        <td>{{ repository.private }}</td>
       </tr>
     </table>
   </div>
