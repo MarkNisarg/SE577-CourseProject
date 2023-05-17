@@ -9,8 +9,8 @@
 
 1. Clone the repository `git clone https://github.com/MarkNisarg/SE577-CourseProject.git`
 2. Checkout to `proj-release-3` or `main` branch
-3. Navigate to the `server` directory and run `pip install -r requirements.txt` to install the necessary dependencies for the backend
-4. Navigate to the `client` directory and run `yarn` to install the necessary dependencies for the frontend
+3. Navigate to the `server` directory and run `pip install -r requirements.txt` to install the necessary dependencies for the backend (For more information: Follow `README.md` of `server` directory)
+5. Navigate to the `client` directory and run `yarn` to install the necessary dependencies for the frontend (For more information: Follow `README.md` of `client` directory)
 
 ## Usage
 
