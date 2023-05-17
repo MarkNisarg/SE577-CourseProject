@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Vaccination",
+    "url": "https://github.com/MarkNisarg/Vaccination",
+    "description": "Vaccine Reminder & Vaccine Schedule",
+    "contributors": "MarkNisarg, geeta-kukreja, Lavan-ya",
+    "languages": "HTML, CSS, JavaScript, Python"
+  },
+  {
+    "name": "SE577-CourseProject",
+    "url": "https://github.com/MarkNisarg/SE577-CourseProject",
+    "description": "Software Architecture",
+    "contributors": "MarkNisarg",
+    "languages": "HTML, CSS, TypeScript, Vue, Python"
+  },
+  {
+    "name": "Hello-World",
+    "url": "https://github.com/MarkNisarg/Hello-World",
+    "description": "Hello World!",
+    "contributors": "MarkNisarg",
+    "languages": "HTML, CSS, JavaScript, PHP"
+  }
+]
