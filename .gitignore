@@ -19,7 +19,8 @@ server/.env
 
 # Ignore any other build artifacts
 .DS_Store
-\# Logs
+
+# Logs
 logs
 *.log
 npm-debug.log*
