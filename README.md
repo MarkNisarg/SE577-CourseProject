@@ -18,8 +18,8 @@
 2. In a separate terminal window, navigate to the `client` directory and run `yarn dev` to start the frontend development server
 3. Open your web browser and navigate to `http://localhost:9095/repos` to get all repositories data
 4. Open your web browser and navigate to `http://localhost:9095/pulls` to get all pull requests from all repositories data
-5. Open your web browser and navigate to `http://localhost:9095/repos/<repo>` to get all pull requests for specific `<repo>`
-4. Open your web browser and navigate to Vue.js app
+5. Open your web browser and navigate to `http://localhost:9095/pulls/<repo>` to get all pull requests for specific `<repo>`
+4. Open your web browser and navigate to Vue.js app and check for Repositories and Pull Requests pages.
 
 ## Features
 
