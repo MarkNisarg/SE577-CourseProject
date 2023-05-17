@@ -1,38 +1,51 @@
-import os
-from flask import Flask, json, jsonify, request
+from flask import Flask, jsonify
 from flask_cors import CORS
+from proxy import GithubProxy
 
 # Instantiate the app.
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['JSON_SORT_KEYS'] = False
 
 # Enable CORS.
 CORS(app, resources={r'/*': {'origins': '*'}})
 
+# Instantiate proxy object.
+proxy = GithubProxy()
+
 # Repositories route.
 @app.route('/repos', methods=['GET'])
-def repositories():
-    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-    json_url = os.path.join(SITE_ROOT, 'static', 'repositories.json')
-    return json.load(open(json_url))
+def get_repositories():
+    repositories = proxy.get_data('user/repos')
+    return jsonify(repositories)
 
-@app.errorhandler(404)
-def invalid_route():
-    return jsonify({'errorCode' : 404, 'message' : 'Route not found!'}), 404
+# All request route.
+@app.route('/pulls', methods=['GET'])
+def get_pulls():
+    # Send a GET request to the Reverse Proxy API to get all repos.
+    repositories = proxy.get_data('user/repos')
 
-# Pull requests route.
-@app.route('/pull', methods=['GET'])
-def pull_requests():
-    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-    json_url = os.path.join(SITE_ROOT, 'static', 'pull_requests.json')
-    pulls_data = json.load(open(json_url))
-    repo = request.args.get('repo')
-    if repo:
-        pulls_data = [x for x in pulls_data if x['repo'].lower() == repo.lower()]
-        if not pulls_data:
-            return invalid_route()
+    # Create an empty list to store all pull requests.
+    pull_requests = []
 
-    return pulls_data
+    for repo in repositories:
+      # Send a GET request to the GitHub API to get all pull requests for the repo.
+      pr_response = proxy.get_data(f'repos/MarkNisarg/{repo["name"]}/pulls?state=all')
+
+      # Add the pull requests to the list.
+      pull_requests.extend(pr_response)
+
+    # Return the list of pull requests as JSON
+    return jsonify(pull_requests)
+
+# Pull request for specific repo route.
+@app.route('/pulls/<path:repo>', methods=['GET'])
+def get_pull_for_repo(repo):
+    # Send a GET request to the Reverse Proxy API to get all repos.
+    pull_requests = proxy.get_data(f'repos/MarkNisarg/{repo}/pulls?state=all')
+
+    # Return the list of pull requests as JSON
+    return jsonify(pull_requests)
 
 if __name__ == '__main__':
     app.run(host='localhost', port=9095, debug=True)

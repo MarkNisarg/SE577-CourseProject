@@ -4,14 +4,13 @@
     Welcome to my GitHub repositories page! Here you can find all of the public repositories that I have created and contributed to on GitHub. From open-source projects to personal experiments, this page provides a comprehensive overview of my coding journey.
   </p>
   <p>
-    Each repository on this page contains a wealth of information about the project, including the description, the programming language used, and the date it was last updated. You can also browse through the repository's files, fork the repository to create your own copy, and even submit issues or pull requests if you have suggestions or contributions to make.
+    Each repository on this page contains a wealth of information about the project, including the description, the open issues, and the visibility. You can also browse through the repository's files, fork the repository to create your own copy, and even submit issues or pull requests if you have suggestions or contributions to make.
   </p>
   <p>
     So take a look around and see what catches your eye and if you have any questions or feedback, don't hesitate to reach out and let me know!
   </p>
 
   <h2>List Repositories:</h2>
-  <p>All repositories will be listed here using GitHub REST API Request...</p>
 
   <!-- Only render this table if there is repositories data -->
   <div v-if="repositoryData.length > 0">
@@ -20,15 +19,15 @@
         <th>Name</th>
         <th>URL</th>
         <th>Description</th>
-        <th>Contributors</th>
-        <th>Languages</th>
+        <th>Open Issues</th>
+        <th>Private</th>
       </tr>
       <tr v-for="repository in repositoryData" :key="repository.name">
         <td>{{ repository.name }}</td>
-        <td><a :href="repository.url" target="_blank" rel="noopener">Open in GitHub</a></td>
+        <td><a :href="repository.html_url" target="_blank" rel="noopener">Open in GitHub</a></td>
         <td>{{ repository.description }}</td>
-        <td>{{ repository.contributors }}</td>
-        <td>{{ repository.languages }}</td>
+        <td>{{ repository.open_issues }}</td>
+        <td>{{ repository.private }}</td>
       </tr>
     </table>
   </div>
