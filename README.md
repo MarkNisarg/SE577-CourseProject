@@ -8,15 +8,17 @@
 ## Installation
 
 1. Clone the repository `git clone https://github.com/MarkNisarg/SE577-CourseProject.git`
-2. Checkout to `proj-release-2` branch
+2. Checkout to `proj-release-3` or `main` branch
 3. Navigate to the `server` directory and run `pip install -r requirements.txt` to install the necessary dependencies for the backend
-4. Navigate to the `github-rest-api-handler` directory and run `yarn` to install the necessary dependencies for the frontend
+4. Navigate to the `client` directory and run `yarn` to install the necessary dependencies for the frontend
 
 ## Usage
 
 1. Navigate to the `server` directory and run `python app.py` to start backend server
-2. In a separate terminal window, navigate to the `github-rest-api-handler` directory and run `yarn dev` to start the frontend development server
-3. Open your web browser and navigate to `http://localhost:9095/repo` to get all repositories data
+2. In a separate terminal window, navigate to the `client` directory and run `yarn dev` to start the frontend development server
+3. Open your web browser and navigate to `http://localhost:9095/repos` to get all repositories data
+4. Open your web browser and navigate to `http://localhost:9095/pulls` to get all pull requests from all repositories data
+5. Open your web browser and navigate to `http://localhost:9095/repos/<repo>` to get all pull requests for specific `<repo>`
 4. Open your web browser and navigate to Vue.js app
 
 ## Features
@@ -27,9 +29,9 @@
 
 ## API Endpoints
 
-* `http://localhost:9095/repo`: Get all repositories data.
-* `http://localhost:9095/pull`: Get all pull requests from all repositories.
-* `http://localhost:9095/pull?repo=<example>`: Get all pull requests from `<example>` repository.
+* `http://localhost:9095/repos`: Get all repositories data.
+* `http://localhost:9095/pulls`: Get all pull requests from all repositories.
+* `http://localhost:9095/pulls/<repo>`: Get all pull requests from `<repo>` repository.
 
 ## Technologies Used
 
