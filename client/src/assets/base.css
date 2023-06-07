@@ -23,6 +23,10 @@
 
   --vt-c-active-link: #f7c500;
   --vt-c-gray: #656d76;
+
+  --vt-c-comment-btn: #d0d7de;
+  --vt-c-merge-btn: #1f883d;
+  --vt-c-close-btn: #d0383c;
 }
 
 /* semantic color variables for this project */
