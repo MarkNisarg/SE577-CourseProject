@@ -2,7 +2,7 @@
   <h1>Pull Requests using GitHub REST API</h1>
   <div v-if="allPrsData.length > 0">
     <div class="form-wrap">
-      <select v-model="queryValue">
+      <select v-model="selectedRepo">
         <option value="">All Repositories</option>
         <option v-for="(repo, roWNum) in repos" :key="roWNum">{{ repo }}</option>
       </select>
@@ -15,9 +15,21 @@
         <div class="link-wrap">
           <a :href="pr.html_url" target="_blank" rel="noopener"> {{ pr.title }} </a>
           <p> By {{ pr.user.login }}</p>
+          <p> To merge changes from <b>{{ pr.head.ref }}</b> to <b>{{ pr.base.ref }}</b></p>
         </div>
         <p> {{ pr.state }} </p>
         <p class="repo-wrap"> Repository: {{ pr.head.repo.name }}</p>
+        <div class="btn-grp">
+          <button @click="postComment(pr.head.repo.name, pr.number)" class="button comment-btn">
+            Leave Comment
+          </button>
+          <button @click="mergePullRequest(pr.head.repo.name, pr.number)" class="button marge-btn">
+            Merge Pull Request
+          </button>
+          <button @click="closePullRequest(pr.head.repo.name, pr.number)" class="button close-btn">
+            Close Pull Request
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -31,31 +43,31 @@
 
 <script setup lang='ts'>
   import { onMounted, ref } from 'vue';
-  import type { RepositoryApiInterface, ApiErrorInterface } from './ApiInterfaces';
+  import type { PullRequestsApiInterface, ApiErrorInterface } from './ApiInterfaces';
   import axios, { AxiosError } from 'axios';
 
-  const queryValue = ref('');
+  const selectedRepo = ref('');
   const apiErrorInfo = ref<ApiErrorInterface>({ isError: false, errorCode: 0, errorMessage: '' })
 
-  let allPrsData = ref<RepositoryApiInterface[]>([]);
-  let prData = ref<RepositoryApiInterface[]>([]);
+  let allPrsData = ref<PullRequestsApiInterface[]>([]);
+  let prData = ref<PullRequestsApiInterface[]>([]);
   let repos: any[] = []
 
   let apiPrefix = 'http://localhost:9095/pulls'
 
   // Fetch pull requests for given query on button click.
   const fetchPullRequestsInfo = async () => {
-    let apiEndPoint = queryValue.value ? '/' + queryValue.value : ''
+    let apiEndPoint = selectedRepo.value ? '/' + selectedRepo.value : ''
     let apiURL = apiPrefix + apiEndPoint
 
     try {
-      let repositoryAPI = await axios.get<RepositoryApiInterface[]>(apiURL)
+      let pullRequestsAPI = await axios.get<PullRequestsApiInterface[]>(apiURL)
 
-      if (repositoryAPI.status == 200) {
+      if (pullRequestsAPI.status == 200) {
         apiErrorInfo.value.isError = false;
-        apiErrorInfo.value.errorCode = repositoryAPI.status;
-        apiErrorInfo.value.errorMessage = repositoryAPI.statusText;
-        prData.value = repositoryAPI.data
+        apiErrorInfo.value.errorCode = pullRequestsAPI.status;
+        apiErrorInfo.value.errorMessage = pullRequestsAPI.statusText;
+        prData.value = pullRequestsAPI.data
       } else {
         console.log('Something is wrong!')
       }
@@ -70,12 +82,71 @@
     }
   }
 
+  // Post comment on pull request.
+  const postComment = async (repoName: string, pullNumber: number) => {
+    let apiEndPoint = `/${repoName}/comment`;
+    let apiURL = apiPrefix + apiEndPoint;
+
+    const comment = prompt('Enter your comment to PR:');
+
+    if (comment) {
+      try {
+        const response = await axios.post<PullRequestsApiInterface[]>(apiURL, {
+          pull_number: pullNumber,
+          comment: comment,
+        });
+        fetchPullRequestsInfo();
+        alert(response.data);
+      }
+      catch (error) {
+        console.error(error);
+        alert('Failed to post comment!');
+      }
+    }
+  }
+
+  // Merge pull request.
+  const mergePullRequest = async (repoName: string, pullNumber: number) => {
+    let apiEndPoint = `/${repoName}/merge`;
+    let apiURL = apiPrefix + apiEndPoint;
+
+    try {
+      const response = await axios.put<PullRequestsApiInterface[]>(apiURL, {
+        pull_number: pullNumber
+      });
+      fetchPullRequestsInfo();
+      alert(response.data);
+    }
+    catch (error) {
+      console.error(error);
+      alert('Failed to merge pull request!');
+    }
+  }
+
+  // Close pull request.
+  const closePullRequest = async (repoName: string, pullNumber: number) => {
+    let apiEndPoint = `/${repoName}/close`;
+    let apiURL = apiPrefix + apiEndPoint;
+
+    try {
+      const response = await axios.patch<PullRequestsApiInterface[]>(apiURL, {
+        pull_number: pullNumber
+      });
+      fetchPullRequestsInfo();
+      alert(response.data);
+    }
+    catch (error) {
+      console.error(error);
+      alert('Failed to merge pull request!');
+    }
+  }
+
   // Get all pull requests from all repos on mount.
   onMounted(async () => {
-    let repositoryAPI = await axios.get<RepositoryApiInterface[]>(apiPrefix)
+    let pullRequestsAPI = await axios.get<PullRequestsApiInterface[]>(apiPrefix)
     // If OK, get all data.
-    if (repositoryAPI.status == 200) {
-      prData.value = allPrsData.value = repositoryAPI.data
+    if (pullRequestsAPI.status == 200) {
+      prData.value = allPrsData.value = pullRequestsAPI.data
       allPrsData.value.forEach(pr => {
         if (!repos.includes(pr.head.repo.name)) {
           repos.push(pr.head.repo.name)
@@ -83,7 +154,6 @@
       });
     }
   });
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -102,7 +172,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   font-family: monospace;
   font-size: 16px;
   background: var(--vt-c-white-softer);
@@ -179,5 +249,34 @@ select {
 .button:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+.btn-grp {
+  flex-basis: 100%;
+  margin: 15px auto 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.comment-btn,
+.marge-btn,
+.close-btn {
+  margin-left: 0;
+  font-size: 20px;
+}
+
+.comment-btn {
+  background-color: var(--vt-c-comment-btn);
+  color: var(--vt-c-black);
+}
+
+.marge-btn {
+  background-color: var(--vt-c-merge-btn);
+}
+
+.close-btn {
+  background-color: var(--vt-c-close-btn);
 }
 </style>
