@@ -1,5 +1,17 @@
 <template>
-  <h1>Pull Requests using GitHub REST API</h1>
+  <h1>Pull Request Handler using GitHub REST API</h1>
+  <p>
+    GitHub REST API Handler is equipped with a powerful feature called Pull Request Handler, designed to streamline my collaboration process and enhance the efficiency of my development workflow. With this feature, I can seamlessly manage and handle pull requests, ensuring smooth and effective collaboration among my team members. Here are some of the key features offered by our Pull Request Handler:
+    <ul>
+      <li>Leave comment on pull request</li>
+      <li>Merge pull request</li>
+      <li>Close pull request</li>
+    </ul>
+  </p>
+  <p>
+    Use below dropdown to fetch pull requests for specific repository.
+  </p>
+
   <div v-if="allPrsData.length > 0">
     <div class="form-wrap">
       <select v-model="selectedRepo">
