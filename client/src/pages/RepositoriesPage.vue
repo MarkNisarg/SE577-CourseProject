@@ -27,7 +27,7 @@
         <td><a :href="repository.html_url" target="_blank" rel="noopener">Open in GitHub</a></td>
         <td>{{ repository.description }}</td>
         <td>{{ repository.open_issues }}</td>
-        <td>{{ repository.private }}</td>
+        <td class="repo-private">{{ repository.private }}</td>
       </tr>
     </table>
   </div>
@@ -86,4 +86,9 @@ td a:focus {
   background-color: transparent;
   text-decoration: underline;
 }
+
+td.repo-private {
+  text-transform: capitalize;
+}
+
 </style>

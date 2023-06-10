@@ -1,17 +1,17 @@
 # Flask GitHub Proxy API
 
-This is a simple Flask application that serves as a proxy for the GitHub API. It provides endpoints to retrieve repository and pull request data from the GitHub API.
+This is a simple Flask application that serves as a proxy for the GitHub API. It provides endpoints to retrieve repository and pull request data from the GitHub API. It also provides leave comment on pull request, merge pull request & close pull request features.
 
 ## Prerequisites
 
 To run this web service, you need to have the following software installed:
 
-* Python 3.x
-* Flask (`pip install flask`)
-* Flask-CORS (`pip install -U flask-cors`)
-* Requests (`pip install requests`)
-* Python-dotenv (`pip install python-dotenv`)
-* GitHub API token (you can generate one [here](https://github.com/settings/tokens))
+- Python 3.x
+- Flask (`pip install flask`)
+- Flask-CORS (`pip install -U flask-cors`)
+- Requests (`pip install requests`)
+- Python-dotenv (`pip install python-dotenv`)
+- GitHub API token (you can generate one [here](https://github.com/settings/tokens))
 
 ## Installation
 
@@ -49,6 +49,7 @@ To run the application, use the following command:
 ```
 python app.py
 ```
+
 The application will be available at http://localhost:9095/.
 
 ## Endpoints
@@ -76,3 +77,36 @@ The application will be available at http://localhost:9095/.
   - `repo`: The repository name.
 - Response: JSON array containing pull request information.
 
+### Leave a comment on a pull request
+
+- URL: `/pulls/<repo>/comment`
+- Method: POST
+- Description: Allows the authenticated user to leave a comment on a specific pull request of a repository.
+- Parameters:
+  - `repo`: The repository name.
+  - Request JSON Body:
+    - `pull_number`: The number of the pull request.
+    - `comment`: The comment to be posted on the pull request.
+- Response: String containing success or error message.
+
+### Merge pull request
+
+- URL: `/pulls/<repo>/merge`
+- Method: PUT
+- Description: Allows the authenticated user to merge a specific pull request of a repository.
+- Parameters:
+  - `repo`: The repository name.
+  - Request JSON Body:
+    - `pull_number`: The number of the pull request.
+- Response: String containing success or error message.
+
+### Close pull request
+
+- URL: `/pulls/<repo>/close`
+- Method: PATCH
+- Description: Allows the authenticated user to close a specific pull request of a repository.
+- Parameters:
+  - `repo`: The repository name.
+  - Request JSON Body:
+    - `pull_number`: The number of the pull request.
+- Response: String containing success or error message.

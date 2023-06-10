@@ -1,4 +1,4 @@
-# GitHub REST API Handler
+# GitHub REST API Handler - Final Release
 
 ## Introduction
 
